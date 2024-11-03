@@ -115,49 +115,50 @@ knowledge_base = FAISS.from_texts(chunks, embeddings)
 # show user input
 #st.subheader("Usa el campo de texto para hacer tu pregunta")
 #user_question = st.text_area(" ")
-if user_question:
-        docs = knowledge_base.similarity_search(user_question)
+user_question=" "
+#if user_question:
+#        docs = knowledge_base.similarity_search(user_question)
 
-        llm = OpenAI(model_name="gpt-4o-mini")
-        chain = load_qa_chain(llm, chain_type="stuff")
-        with get_openai_callback() as cb:
-          response = chain.run(input_documents=docs, question=user_question)
-          print(cb)
-        st.write(response)
+#        llm = OpenAI(model_name="gpt-4o-mini")
+#        chain = load_qa_chain(llm, chain_type="stuff")
+#        with get_openai_callback() as cb:
+#          response = chain.run(input_documents=docs, question=user_question)
+#          print(cb)
+#        st.write(response)
 
-        def text_to_speech(text, tld):
-                
-                tts = gTTS(response,"es", tld , slow=False)
-                try:
-                    my_file_name = text[0:20]
-                except:
-                    my_file_name = "audio"
-                tts.save(f"temp/{my_file_name}.mp3")
-                return my_file_name, text
-
-    
-        if st.button("Escuchar"):
-          result, output_text = text_to_speech(response, 'es-us')
-          audio_file = open(f"temp/{result}.mp3", "rb")
-          audio_bytes = audio_file.read()
-          st.markdown(f"## Escucha:")
-          st.audio(audio_bytes, format="audio/mp3", start_time=0)
+#        def text_to_speech(text, tld):
+#                
+#                tts = gTTS(response,"es", tld , slow=False)
+#                try:
+#                    my_file_name = text[0:20]
+#                except:
+#                    my_file_name = "audio"
+#                tts.save(f"temp/{my_file_name}.mp3")
+#                return my_file_name, text
+#
+#    
+#        if st.button("Escuchar"):
+#          result, output_text = text_to_speech(response, 'es-us')
+#          audio_file = open(f"temp/{result}.mp3", "rb")
+#          audio_bytes = audio_file.read()
+#          st.markdown(f"## Escucha:")
+#          st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
 
 
             
-          def remove_files(n):
-                mp3_files = glob.glob("temp/*mp3")
-                if len(mp3_files) != 0:
-                    now = time.time()
-                    n_days = n * 86400
-                    for f in mp3_files:
-                        if os.stat(f).st_mtime < now - n_days:
-                            os.remove(f)
-                            print("Deleted ", f)
+#          def remove_files(n):
+#                mp3_files = glob.glob("temp/*mp3")
+#                if len(mp3_files) != 0:
+#                    now = time.time()
+#                    n_days = n * 86400
+#                    for f in mp3_files:
+#                        if os.stat(f).st_mtime < now - n_days:
+#                            os.remove(f)
+#                            print("Deleted ", f)
             
             
-          remove_files(7)
+#          remove_files(7)
 
 # Columnas para sensor y pregunta
 col1, col2 = st.columns([1, 2])
