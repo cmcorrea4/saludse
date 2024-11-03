@@ -159,5 +159,52 @@ if user_question:
             
           remove_files(7)
 
+# Columnas para sensor y pregunta
+col1, col2 = st.columns([1, 2])
 
+with col1:
+    st.subheader("Datos del Sensor")
+    if st.button("Obtener Lectura"):
+        with st.spinner('Obteniendo datos del sensor...'):
+            sensor_data = get_mqtt_message()
+            st.session_state.sensor_data = sensor_data
+            
+            if sensor_data:
+                st.success("Datos recibidos")
+                st.metric("Temperatura", f"{sensor_data.get('Temp', 'N/A')}°C")
+                st.metric("Humedad", f"{sensor_data.get('Hum', 'N/A')}%")
+            else:
+                st.warning("No se recibieron datos del sensor")
+
+with col2:
+    st.subheader("Realiza tu consulta")
+    user_question = st.text_area("Escribe tu pregunta aquí:")
+    
+    if user_question:
+        # Incorporar datos del sensor en la pregunta si están disponibles
+        if st.session_state.sensor_data:
+            enhanced_question = f"""
+            Contexto actual del sensor:
+            - Temperatura: {st.session_state.sensor_data.get('Temp', 'N/A')}°C
+            - Humedad: {st.session_state.sensor_data.get('Hum', 'N/A')}%
+            
+            Pregunta del usuario:
+            {user_question}
+            """
+        else:
+            enhanced_question = user_question
+        
+        docs = knowledge_base.similarity_search(enhanced_question)
+        llm = OpenAI(model_name="gpt-4")
+        chain = load_qa_chain(llm, chain_type="stuff")
+        
+        with st.spinner('Analizando tu pregunta...'):
+            with get_openai_callback() as cb:
+                response = chain.run(input_documents=docs, question=enhanced_question)
+                print(cb)
+            
+            st.write("Respuesta:", response)
+
+# Cerrar archivo PDF
+pdfFileObj.close()
 
