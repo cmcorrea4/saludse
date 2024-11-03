@@ -212,11 +212,7 @@ with col2:
               audio_bytes = audio_file.read()
               st.markdown(f"## Escucha:")
               st.audio(audio_bytes, format="audio/mp3", start_time=0)
-
-
-
-            
-               def remove_files(n):
+              def remove_files(n):
                   mp3_files = glob.glob("temp/*mp3")
                   if len(mp3_files) != 0:
                     now = time.time()
