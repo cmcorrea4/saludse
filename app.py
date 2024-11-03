@@ -74,11 +74,11 @@ with st.sidebar:
                 )            
 
 st.title('Sistema Experto CONFORMADORA DE TALONES💬')
-image = Image.open('Instructor.png')
-st.image(image)
-#with open('Experts.json') as source:
-#     animation=json.load(source)
-#st.lottie(animation,width =350)
+#image = Image.open('Instructor.png')
+#st.image(image)
+with open('robotS.json') as source:
+     animation=json.load(source)
+st.lottie(animation,width =350)
 
 #ke = st.text_input('Ingresa tu Clave')
 #os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
