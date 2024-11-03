@@ -27,6 +27,30 @@ MQTT_TOPIC = "sensor_st"
 if 'sensor_data' not in st.session_state:
     st.session_state.sensor_data = None
 
+def text_to_speech(text, tld):
+                
+    tts = gTTS(response,"es", tld , slow=False)
+    try:
+        my_file_name = text[0:20]
+    except:
+        my_file_name = "audio"
+    tts.save(f"temp/{my_file_name}.mp3")
+    return my_file_name, text
+
+
+                
+def remove_files(n):
+    mp3_files = glob.glob("temp/*mp3")
+    if len(mp3_files) != 0:
+      now = time.time()
+      n_days = n * 86400
+      for f in mp3_files:
+         if os.stat(f).st_mtime < now - n_days:
+             os.remove(f)
+
+
+
+
 def get_mqtt_message():
     """Función para obtener un único mensaje MQTT"""
     message_received = {"received": False, "payload": None}
@@ -67,8 +91,8 @@ except:
 with st.sidebar:
     st.subheader("Que es un sistema Experto?")
     st.write(
-    """Este sistema experto te resolverá dudas sobre la conformadora de talones.
-       te ayudará a aprender lo básico sobre la máquina.
+    """Robi resolverá dudas sobre las dudas que tengas.
+       Recuerda siempre usarlo con un adulto.
        
     """
                 )            
@@ -126,16 +150,7 @@ user_question=" "
 #          print(cb)
 #        st.write(response)
 
-#        def text_to_speech(text, tld):
-#                
-#                tts = gTTS(response,"es", tld , slow=False)
-#                try:
-#                    my_file_name = text[0:20]
-#                except:
-#                    my_file_name = "audio"
-#                tts.save(f"temp/{my_file_name}.mp3")
-#                return my_file_name, text
-#
+        
 #    
 #        if st.button("Escuchar"):
 #          result, output_text = text_to_speech(response, 'es-us')
@@ -212,14 +227,8 @@ with col2:
               audio_bytes = audio_file.read()
               st.markdown(f"## Escucha:")
               st.audio(audio_bytes, format="audio/mp3", start_time=0)
-              def remove_files(n):
-                  mp3_files = glob.glob("temp/*mp3")
-                  if len(mp3_files) != 0:
-                    now = time.time()
-                    n_days = n * 86400
-                    for f in mp3_files:
-                         if os.stat(f).st_mtime < now - n_days:
-                             os.remove(f)
+
+             
 #                            print("Deleted ", f)
             
             
