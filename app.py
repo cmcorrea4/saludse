@@ -207,7 +207,7 @@ with col2:
             st.write("Respuesta:", response)
 
             if st.button("Escuchar"):
-              result, output_text = text_to_speech(response, 'es-us')
+              result, output_text = text_to_speech(response, 'es-es')
               audio_file = open(f"temp/{result}.mp3", "rb")
               audio_bytes = audio_file.read()
               st.markdown(f"## Escucha:")
