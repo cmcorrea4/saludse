@@ -73,7 +73,7 @@ with st.sidebar:
     """
                 )            
 
-st.title('Sistema Experto CONFORMADORA DE TALONES💬')
+st.title('Hola!!! Soy Robi 💬')
 #image = Image.open('Instructor.png')
 #st.image(image)
 with open('robotS.json') as source:
@@ -205,6 +205,30 @@ with col2:
                 print(cb)
             
             st.write("Respuesta:", response)
+
+            if st.button("Escuchar"):
+              result, output_text = text_to_speech(response, 'es-us')
+              audio_file = open(f"temp/{result}.mp3", "rb")
+              audio_bytes = audio_file.read()
+              st.markdown(f"## Escucha:")
+              st.audio(audio_bytes, format="audio/mp3", start_time=0)
+
+
+
+            
+               def remove_files(n):
+                  mp3_files = glob.glob("temp/*mp3")
+                  if len(mp3_files) != 0:
+                    now = time.time()
+                     n_days = n * 86400
+                     for f in mp3_files:
+                         if os.stat(f).st_mtime < now - n_days:
+                            os.remove(f)
+#                            print("Deleted ", f)
+            
+            
+#          remove_files(7)
+
 
 # Cerrar archivo PDF
 pdfFileObj.close()
