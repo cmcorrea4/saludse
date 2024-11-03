@@ -113,7 +113,7 @@ embeddings = OpenAIEmbeddings()
 knowledge_base = FAISS.from_texts(chunks, embeddings)
 
 # show user input
-st.subheader("Usa el campo de texto para hacer tu pregunta")
+#st.subheader("Usa el campo de texto para hacer tu pregunta")
 user_question = st.text_area(" ")
 if user_question:
         docs = knowledge_base.similarity_search(user_question)
@@ -195,7 +195,7 @@ with col2:
             enhanced_question = user_question
         
         docs = knowledge_base.similarity_search(enhanced_question)
-        llm = OpenAI(model_name="gpt-4")
+        llm = OpenAI(model_name="gpt-4o-mini")
         chain = load_qa_chain(llm, chain_type="stuff")
         
         with st.spinner('Analizando tu pregunta...'):
