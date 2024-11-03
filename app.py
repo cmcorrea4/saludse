@@ -114,7 +114,7 @@ knowledge_base = FAISS.from_texts(chunks, embeddings)
 
 # show user input
 #st.subheader("Usa el campo de texto para hacer tu pregunta")
-user_question = st.text_area(" ")
+#user_question = st.text_area(" ")
 if user_question:
         docs = knowledge_base.similarity_search(user_question)
 
