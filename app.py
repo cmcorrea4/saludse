@@ -19,7 +19,45 @@ import json
 import paho.mqtt.client as mqtt
 import pytz
 
+MQTT_BROKER = "broker.mqttdashboard.com"
+MQTT_PORT = 1883
+MQTT_TOPIC = "sensor_st"
 
+# Variables de estado para los datos del sensor
+if 'sensor_data' not in st.session_state:
+    st.session_state.sensor_data = None
+
+def get_mqtt_message():
+    """Función para obtener un único mensaje MQTT"""
+    message_received = {"received": False, "payload": None}
+    
+    def on_message(client, userdata, message):
+        try:
+            payload = json.loads(message.payload.decode())
+            message_received["payload"] = payload
+            message_received["received"] = True
+        except Exception as e:
+            st.error(f"Error al procesar mensaje: {e}")
+    
+    try:
+        client = mqtt.Client()
+        client.on_message = on_message
+        client.connect(MQTT_BROKER, MQTT_PORT, 60)
+        client.subscribe(MQTT_TOPIC)
+        client.loop_start()
+        
+        timeout = time.time() + 5
+        while not message_received["received"] and time.time() < timeout:
+            time.sleep(0.1)
+        
+        client.loop_stop()
+        client.disconnect()
+        
+        return message_received["payload"]
+    
+    except Exception as e:
+        st.error(f"Error de conexión: {e}")
+        return None
 
 try:
     os.mkdir("temp")
