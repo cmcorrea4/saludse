@@ -197,7 +197,7 @@ with col3:
     ["Consultar", "Preparar"],
     help="Seleccione 'Consultar' para ver el estado o 'Preparar' para enviar comando"
     )
-    if modo="Preparar"    
+    if modo=="Preparar" :   
        client = mqtt.Client()
        client.on_message = on_message
        client.connect(MQTT_BROKER, MQTT_PORT, 60)
