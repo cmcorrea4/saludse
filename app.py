@@ -49,7 +49,17 @@ def remove_files(n):
              os.remove(f)
 
 
-
+def send_mqtt_message(message):
+    """Función para enviar un mensaje MQTT"""
+    try:
+        client = mqtt.Client()
+        client.connect(MQTT_BROKER, MQTT_PORT, 60)
+        client.publish(MQTT_TOPIC, message)
+        client.disconnect()
+        return True
+    except Exception as e:
+        st.error(f"Error al enviar mensaje MQTT: {e}")
+        return False
 
 def get_mqtt_message():
     """Función para obtener un único mensaje MQTT"""
