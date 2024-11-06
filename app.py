@@ -171,9 +171,6 @@ with col2:
         # Incorporar datos del sensor en la pregunta si están disponibles
         if st.session_state.sensor_data:
             enhanced_question = f"""
-            Contexto actual del sensor:
-            - Temperatura: {st.session_state.sensor_data.get('Temp', 'N/A')}°C
-            
             
             Pregunta del usuario:
             {user_question},escribir al final solo los valores de temperatura de la receta y el tiempo en la respuesta
@@ -200,11 +197,11 @@ with col2:
               st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
 
-TEMPC = st.number_input("Insert a number",key="1")
-TIMEC = st.number_input("Insert a number",key="2")
+TEMPC = st.number_input("Temperatura",key="1")
+TIMEC = st.number_input("Tiempo",key="2")
 if st.button("Preparar"):
     # Crear mensaje JSON
-    mensaje=f"{TEMPC},{TIMEC}" 
+    mensaje=f"{TEMPC}°C,{TIMEC}" 
     send_mqtt_message(mensaje)
     client = mqtt.Client()
     client.connect(MQTT_BROKER, MQTT_PORT, 60)
