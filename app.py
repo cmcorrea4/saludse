@@ -195,7 +195,7 @@ with col3:
     modo = st.radio(
     "Modo:",
     ["Consultar", "Preparar"],
-    help="Seleccione 'Consultar' para ver el estado o 'Preparar' para enviar comando 
+    help="Seleccione 'Consultar' para ver el estado o 'Preparar' para enviar comando"
     )
     if modo="Preparar"    
        client = mqtt.Client()
