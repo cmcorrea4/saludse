@@ -208,7 +208,7 @@ if st.button("Preparar"):
     with st.spinner('Enviando mensaje...'):
         if send_mqtt_message(mensaje):
             st.success("Mensaje enviado con éxito")
-            st.code(mensaje, language='json')
+            #st.code(mensaje, language='json')
         else:
             st.error("Error al enviar el mensaje")
 
