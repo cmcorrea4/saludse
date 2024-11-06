@@ -54,7 +54,7 @@ def send_mqtt_message(message):
     try:
         client = mqtt.Client()
         client.connect(MQTT_BROKER, MQTT_PORT, 60)
-        client.publish(MQTT_TOPIC, message)
+        client.publish("h_ctrl", message)
         client.disconnect()
         return True
     except Exception as e:
