@@ -204,6 +204,10 @@ if st.button("Preparar"):
     # Crear mensaje JSON
     mensaje = "Horno config"
     send_mqtt_message(mensaje)
+    client = mqtt.Client()
+    client.connect(MQTT_BROKER, MQTT_PORT, 60)
+    client.publish("h_ctrl", message)
+    client.disconnect()
     # Enviar mensaje
     with st.spinner('Enviando mensaje...'):
         if send_mqtt_message(mensaje):
