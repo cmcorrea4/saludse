@@ -173,11 +173,10 @@ with col2:
             enhanced_question = f"""
             Contexto actual del sensor:
             - Temperatura: {st.session_state.sensor_data.get('Temp', 'N/A')}°C
-            - Humedad: {st.session_state.sensor_data.get('Hum', 'N/A')}%
+            
             
             Pregunta del usuario:
-            {user_question},si la pregunta inicia con cocinar 
-            escribir al final solo los valores de temperatura de la receta y el tiempo en la respuesta
+            {user_question},escribir al final solo los valores de temperatura de la receta y el tiempo en la respuesta
             """
         else:
             enhanced_question = user_question
