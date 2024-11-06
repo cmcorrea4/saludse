@@ -202,10 +202,9 @@ mensaje=st.text_input("Configura el Horno")
 
 TEMPC = st.number_input("Insert a number",key="1")
 TIMEC = st.number_input("Insert a number",key="2")
-st.button("Preparar"):
+st.button("Preparar")
     # Crear mensaje JSON
-    mensaje=f"{TEMPC},{TIMEC}"
-    
+    mensaje=f"{TEMPC},{TIMEC}" 
     send_mqtt_message(mensaje)
     client = mqtt.Client()
     client.connect(MQTT_BROKER, MQTT_PORT, 60)
