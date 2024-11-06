@@ -135,44 +135,6 @@ chunks = text_splitter.split_text(text)
 embeddings = OpenAIEmbeddings()
 knowledge_base = FAISS.from_texts(chunks, embeddings)
 
-# show user input
-#st.subheader("Usa el campo de texto para hacer tu pregunta")
-#user_question = st.text_area(" ")
-user_question=" "
-#if user_question:
-#        docs = knowledge_base.similarity_search(user_question)
-
-#        llm = OpenAI(model_name="gpt-4o-mini")
-#        chain = load_qa_chain(llm, chain_type="stuff")
-#        with get_openai_callback() as cb:
-#          response = chain.run(input_documents=docs, question=user_question)
-#          print(cb)
-#        st.write(response)
-
-        
-#    
-#        if st.button("Escuchar"):
-#          result, output_text = text_to_speech(response, 'es-us')
-#          audio_file = open(f"temp/{result}.mp3", "rb")
-#          audio_bytes = audio_file.read()
-#          st.markdown(f"## Escucha:")
-#          st.audio(audio_bytes, format="audio/mp3", start_time=0)
-
-
-
-            
-#          def remove_files(n):
-#                mp3_files = glob.glob("temp/*mp3")
-#                if len(mp3_files) != 0:
-#                    now = time.time()
-#                    n_days = n * 86400
-#                    for f in mp3_files:
-#                        if os.stat(f).st_mtime < now - n_days:
-#                            os.remove(f)
-#                            print("Deleted ", f)
-            
-            
-#          remove_files(7)
 
 # Columnas para sensor y pregunta
 col1, col2 = st.columns([1, 2])
@@ -187,7 +149,7 @@ with col1:
             if sensor_data:
                 st.success("Datos recibidos")
                 st.metric("Temperatura", f"{sensor_data.get('Temp', 'N/A')}°C")
-                st.metric("Humedad", f"{sensor_data.get('Hum', 'N/A')}%")
+                
             else:
                 st.warning("No se recibieron datos del sensor")
 
@@ -204,7 +166,7 @@ with col2:
             - Humedad: {st.session_state.sensor_data.get('Hum', 'N/A')}%
             
             Pregunta del usuario:
-            {user_question}
+            {user_question}, adiciona un mensaje final que escriba el valor de temperatura y el tiempo de la receta unicamente
             """
         else:
             enhanced_question = user_question
@@ -228,12 +190,6 @@ with col2:
               st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
              
-#                            print("Deleted ", f)
-            
-            
-#          remove_files(7)
-
-
 # Cerrar archivo PDF
 pdfFileObj.close()
 
