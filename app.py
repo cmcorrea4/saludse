@@ -21,7 +21,7 @@ import pytz
 
 MQTT_BROKER = "broker.mqttdashboard.com"
 MQTT_PORT = 1883
-MQTT_TOPIC = "sensor_st"
+MQTT_TOPIC = "smartoven"
 
 # Variables de estado para los datos del sensor
 if 'sensor_data' not in st.session_state:
