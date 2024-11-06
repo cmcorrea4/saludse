@@ -173,7 +173,7 @@ with col2:
             enhanced_question = f"""
             
             Pregunta del usuario:
-            {user_question},escribir al final solo los valores de temperatura de la receta y el tiempo en la respuesta
+            {user_question} # ,escribir al final solo los valores de temperatura de la receta y el tiempo en la respuesta
             """
         else:
             enhanced_question = user_question
