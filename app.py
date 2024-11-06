@@ -190,6 +190,17 @@ with col2:
               st.markdown(f"## Escucha:")
               st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
+if st.button("Preparar"):
+    # Crear mensaje JSON
+    mensaje = "Horno config"
+    
+    # Enviar mensaje
+    with st.spinner('Enviando mensaje...'):
+        if send_mqtt_message(mensaje):
+            st.success("Mensaje enviado con éxito")
+            st.code(mensaje, language='json')
+        else:
+            st.error("Error al enviar el mensaje")
 
 pdfFileObj.close()
 
