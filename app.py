@@ -100,7 +100,7 @@ with st.sidebar:
 st.title('Hola!!! Soy Robi 💬')
 #image = Image.open('Instructor.png')
 #st.image(image)
-with open('robotS.json') as source:
+with open('umbird.json') as source:
      animation=json.load(source)
 st.lottie(animation,width =350)
 
