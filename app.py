@@ -89,18 +89,17 @@ except:
     pass
 
 with st.sidebar:
-    st.subheader("Que es un sistema Experto?")
+    st.subheader("HORNO INTELIGENTE")
     st.write(
-    """Robi resolverá dudas sobre las dudas que tengas.
-       Recuerda siempre usarlo con un adulto.
+    """Esta app hace más fácil preparar tus recetas.
        
     """
                 )            
 
-st.title('Hola!!! Soy Robi 💬')
+st.title('SMARTOVEN 💬')
 #image = Image.open('Instructor.png')
 #st.image(image)
-with open('robotS.json') as source:
+with open('oven.json') as source:
      animation=json.load(source)
 st.lottie(animation,width =350)
 
