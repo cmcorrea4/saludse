@@ -190,9 +190,7 @@ with col2:
               st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
 with col3:
-    action = st.radio("What's your favorite movie genre",[":rainbow[Comedy]", "***Drama***", "Documentary :movie_camera:"],
-    index=None,
-    )
+    action = st.radio(["Sel","Comedy", "Drama", "Documentary"],index=None,)
     st.write(action)
 # Cerrar archivo PDF
 pdfFileObj.close()
