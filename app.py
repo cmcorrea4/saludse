@@ -91,13 +91,13 @@ except:
 with st.sidebar:
     st.subheader("Que es un sistema Experto?")
     st.write(
-    """Robi resolverá dudas sobre las dudas que tengas.
-       Recuerda siempre usarlo con un adulto.
+    """UMI resolverá dudas sobre las dudas que tengas.
+       
        
     """
                 )            
 
-st.title('Hola!!! Soy Robi 💬')
+st.title('Hola!!! Soy UMI 💬')
 #image = Image.open('Instructor.png')
 #st.image(image)
 with open('umbird.json') as source:
