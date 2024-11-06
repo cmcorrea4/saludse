@@ -137,7 +137,7 @@ knowledge_base = FAISS.from_texts(chunks, embeddings)
 
 
 # Columnas para sensor y pregunta
-col1, col2, col3 = st.columns([1, 2, 3])
+col1, col2 = st.columns([1, 2])
 
 with col1:
     st.subheader("Datos del Sensor")
