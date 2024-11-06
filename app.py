@@ -166,7 +166,8 @@ with col2:
             - Humedad: {st.session_state.sensor_data.get('Hum', 'N/A')}%
             
             Pregunta del usuario:
-            {user_question}
+            {user_question},si la pregunta inicia con cocinar 
+            escribir al final solo los valores de temperatura de la receta y el tiempo en la respuesta
             """
         else:
             enhanced_question = user_question
@@ -194,8 +195,13 @@ with col3:
     modo = st.radio(
     "Modo:",
     ["Consultar", "Preparar"],
-    help="Seleccione 'Consultar' para ver el estado o 'Preparar' para enviar comando"
-)
+    help="Seleccione 'Consultar' para ver el estado o 'Preparar' para enviar comando 
+    )
+    if modo="Preparar"    
+       client = mqtt.Client()
+       client.on_message = on_message
+       client.connect(MQTT_BROKER, MQTT_PORT, 60)
+       client.pubish("h_ctrl",response)
 # Cerrar archivo PDF
 pdfFileObj.close()
 
