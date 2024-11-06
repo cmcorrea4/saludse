@@ -137,7 +137,7 @@ knowledge_base = FAISS.from_texts(chunks, embeddings)
 
 
 # Columnas para sensor y pregunta
-col1, col2 = st.columns([1, 2])
+col1, col2, col3 = st.columns([1, 2, 3])
 
 with col1:
     st.subheader("Datos del Sensor")
@@ -166,7 +166,7 @@ with col2:
             - Humedad: {st.session_state.sensor_data.get('Hum', 'N/A')}%
             
             Pregunta del usuario:
-            {user_question}, adiciona un mensaje final que escriba el valor de temperatura y el tiempo de la receta unicamente
+            {user_question}
             """
         else:
             enhanced_question = user_question
@@ -189,7 +189,16 @@ with col2:
               st.markdown(f"## Escucha:")
               st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
-             
+with col3:
+      send=st.radio(
+          "Set label visibility 👇",
+          ["Consultar", "Preparar"],
+          key="visibility",
+          label_visibility=st.session_state.visibility,
+          disabled=st.session_state.disabled,
+          horizontal=st.session_state.horizontal,
+      )
+st.write(send)
 # Cerrar archivo PDF
 pdfFileObj.close()
 
