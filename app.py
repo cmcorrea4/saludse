@@ -201,7 +201,7 @@ TEMPC = st.number_input("Temperatura",key="1")
 TIMEC = st.number_input("Tiempo",key="2")
 if st.button("Preparar"):
     # Crear mensaje JSON
-    mensaje=f"{TEMPC}°C,{TIMEC}" 
+    mensaje=f"{TEMPC},{TIMEC}" 
     send_mqtt_message(mensaje)
     client = mqtt.Client()
     client.connect(MQTT_BROKER, MQTT_PORT, 60)
