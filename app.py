@@ -190,18 +190,6 @@ with col2:
               st.markdown(f"## Escucha:")
               st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
-with col3:
-    st.subheader("Seleccione el modo de operación")
-    modo = st.radio(
-    "Modo:",
-    ["Consultar", "Preparar"],
-    help="Seleccione 'Consultar' para ver el estado o 'Preparar' para enviar comando"
-    )
-    if modo=="Preparar" :   
-       client = mqtt.Client()
-       client.on_message = on_message
-       client.connect(MQTT_BROKER, MQTT_PORT, 60)
-       client.pubish("h_ctrl",response)
-# Cerrar archivo PDF
+
 pdfFileObj.close()
 
