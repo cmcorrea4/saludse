@@ -196,7 +196,7 @@ with col2:
               st.markdown(f"## Escucha:")
               st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
-
+user_question="" 
 TEMPC = st.number_input("Temperatura",key="1")
 TIMEC = st.number_input("Tiempo",key="2")
 if st.button("Preparar"):
