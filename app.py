@@ -199,9 +199,12 @@ with col2:
               st.markdown(f"## Escucha:")
               st.audio(audio_bytes, format="audio/mp3", start_time=0)
 mensaje=st.text_input("Configura el Horno")
-if mensaje and st.button("Preparar"):
+
+TEMPC = st.number_input("Insert a number",key="1")
+TIMEC = st.number_input("Insert a number",key="2")
+st.button("Preparar"):
     # Crear mensaje JSON
-    
+    mensaje=f"{TEMPC},{TIMEC}"
     
     send_mqtt_message(mensaje)
     client = mqtt.Client()
