@@ -203,7 +203,7 @@ with col2:
 if st.button("Preparar"):
     # Crear mensaje JSON
     mensaje = "Horno config"
-    
+    send_mqtt_message(mensaje)
     # Enviar mensaje
     with st.spinner('Enviando mensaje...'):
         if send_mqtt_message(mensaje):
