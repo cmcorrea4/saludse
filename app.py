@@ -206,7 +206,7 @@ if st.button("Preparar"):
     send_mqtt_message(mensaje)
     client = mqtt.Client()
     client.connect(MQTT_BROKER, MQTT_PORT, 60)
-    client.publish("h_ctrl", message)
+    client.publish("h_ctrl",mensaje)
     client.disconnect()
     # Enviar mensaje
     with st.spinner('Enviando mensaje...'):
