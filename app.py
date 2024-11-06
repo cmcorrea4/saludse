@@ -190,8 +190,12 @@ with col2:
               st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
 with col3:
-    action = st.radio("Sel",["Comedy", "Drama", "Documentary"],index=None,)
-    st.write(action)
+    st.subheader("Seleccione el modo de operación")
+    modo = st.radio(
+    "Modo:",
+    ["Consultar", "Preparar"],
+    help="Seleccione 'Consultar' para ver el estado o 'Preparar' para enviar comando"
+)
 # Cerrar archivo PDF
 pdfFileObj.close()
 
