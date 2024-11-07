@@ -107,17 +107,12 @@ with st.sidebar:
                 )            
 
 st.title('SMARTOVEN 💬')
-#image = Image.open('Instructor.png')
-#st.image(image)
 with open('oven.json') as source:
      animation=json.load(source)
 st.lottie(animation,width =350)
 
-#ke = st.text_input('Ingresa tu Clave')
-#os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
-os.environ['OPENAI_API_KEY'] = st.secrets["settings"]["key"] #ke
 
-#st.write(st.secrets["settings"]["key"])
+os.environ['OPENAI_API_KEY'] = st.secrets["settings"]["key"] 
 
 pdfFileObj = open('Recetas.pdf', 'rb')
  
@@ -125,19 +120,16 @@ pdfFileObj = open('Recetas.pdf', 'rb')
 pdfReader = PyPDF2.PdfReader(pdfFileObj)
 
 
-    # upload file
-#pdf = st.file_uploader("Carga el archivo PDF", type="pdf")
 
-   # extract the text
-#if pdf is not None:
+# extract the text
 from langchain.text_splitter import CharacterTextSplitter
- #pdf_reader = PdfReader(pdf)
+
 pdf_reader  = PyPDF2.PdfReader(pdfFileObj)
 text = ""
 for page in pdf_reader.pages:
          text += page.extract_text()
 
-   # split into chunks
+# split into chunks
 text_splitter = CharacterTextSplitter(separator="\n",chunk_size=500,chunk_overlap=20,length_function=len)
 chunks = text_splitter.split_text(text)
 
