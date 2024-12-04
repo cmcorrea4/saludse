@@ -3,7 +3,6 @@ import paho.mqtt.client as mqtt
 import json
 from datetime import datetime
 import time
-from collections import deque
 
 # Configuración de la página
 st.set_page_config(
@@ -20,13 +19,25 @@ MQTT_TOPIC = "sensor_st"
 # Inicialización de variables en session state
 if 'sensor_data' not in st.session_state:
     st.session_state.sensor_data = {
-        'temp_data': deque(maxlen=100),
-        'hum_data': deque(maxlen=100),
-        'timestamps': deque(maxlen=100),
+        'temp_data': [],
+        'hum_data': [],
+        'timestamps': [],
         'last_temp': 0,
         'last_hum': 0,
         'connected': False
     }
+    
+# Función para mantener solo los últimos 100 registros
+def update_data_lists(temp, hum, timestamp):
+    st.session_state.sensor_data['temp_data'].append(temp)
+    st.session_state.sensor_data['hum_data'].append(hum)
+    st.session_state.sensor_data['timestamps'].append(timestamp)
+    
+    # Mantener solo los últimos 100 registros
+    if len(st.session_state.sensor_data['temp_data']) > 100:
+        st.session_state.sensor_data['temp_data'] = st.session_state.sensor_data['temp_data'][-100:]
+        st.session_state.sensor_data['hum_data'] = st.session_state.sensor_data['hum_data'][-100:]
+        st.session_state.sensor_data['timestamps'] = st.session_state.sensor_data['timestamps'][-100:]
 
 def get_mqtt_message():
     """Función para obtener un mensaje MQTT"""
@@ -40,11 +51,12 @@ def get_mqtt_message():
             
             # Actualizar datos en session_state
             timestamp = datetime.now()
-            st.session_state.sensor_data['temp_data'].append(payload.get('temperatura', 0))
-            st.session_state.sensor_data['hum_data'].append(payload.get('humedad', 0))
-            st.session_state.sensor_data['timestamps'].append(timestamp)
-            st.session_state.sensor_data['last_temp'] = payload.get('temperatura', 0)
-            st.session_state.sensor_data['last_hum'] = payload.get('humedad', 0)
+            temp = payload.get('Temp', 0)  # Cambiado a 'Temp'
+            hum = payload.get('Hum', 0)    # Cambiado a 'Hum'
+            
+            update_data_lists(temp, hum, timestamp)
+            st.session_state.sensor_data['last_temp'] = temp
+            st.session_state.sensor_data['last_hum'] = hum
             
         except Exception as e:
             st.error(f"Error al procesar mensaje: {e}")
@@ -85,8 +97,8 @@ with tab1:
                 sensor_data = get_mqtt_message()
                 if sensor_data:
                     st.success("Datos recibidos")
-                    st.metric("Temperatura", f"{sensor_data.get('temperatura', 'N/A')}°C")
-                    st.metric("Humedad", f"{sensor_data.get('humedad', 'N/A')}%")
+                    st.metric("Temperatura", f"{sensor_data.get('Temp', 'N/A')}°C")
+                    st.metric("Humedad", f"{sensor_data.get('Hum', 'N/A')}%")
                 else:
                     st.warning("No se recibieron datos del sensor")
     
@@ -105,8 +117,8 @@ with tab2:
     st.markdown("### GET /sensor/actual")
     current_data = {
         "timestamp": datetime.now().isoformat(),
-        "temperatura": st.session_state.sensor_data['last_temp'],
-        "humedad": st.session_state.sensor_data['last_hum']
+        "Temp": st.session_state.sensor_data['last_temp'],
+        "Hum": st.session_state.sensor_data['last_hum']
     }
     st.json(current_data)
     
@@ -115,8 +127,8 @@ with tab2:
     if len(st.session_state.sensor_data['timestamps']) > 0:
         history_data = [{
             "timestamp": ts.isoformat(),
-            "temperatura": temp,
-            "humedad": hum
+            "Temp": temp,
+            "Hum": hum
         } for ts, temp, hum in zip(
             st.session_state.sensor_data['timestamps'],
             st.session_state.sensor_data['temp_data'],
@@ -138,8 +150,8 @@ with st.sidebar:
     st.subheader("Formato de Datos")
     st.code("""
     {
-        "temperatura": 25.5,
-        "humedad": 60
+        "Temp": 25.5,
+        "Hum": 60
     }
     """)
 
@@ -147,4 +159,3 @@ with st.sidebar:
 if st.session_state.sensor_data['last_temp'] > 0:
     time.sleep(2)
     st.rerun()
-
