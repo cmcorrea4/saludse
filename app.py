@@ -159,8 +159,8 @@ with col1:
             
             if sensor_data:
                 st.success("Datos recibidos")
-                st.metric("Temperatura", f"{sensor_data.get('Temp', 'N/A')}°C")
-                st.metric("Humedad", f"{sensor_data.get('Hum', 'N/A')}%")
+                st.metric("Temperatura", f"{sensor_data.get('Temp', 'N/A'):.2f}°C")
+                st.metric("Humedad", f"{sensor_data.get('Hum', 'N/A'):.2f}%")
             else:
                 st.warning("No se recibieron datos del sensor")
 
