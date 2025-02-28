@@ -152,7 +152,7 @@ col1, col2 = st.columns([1, 2])
 
 with col1:
     st.subheader("Datos del Sensor")
-    if st.button("Obtener Lectura"):
+    if st.button("Obtener Lectura",type="primary"):
         with st.spinner('Obteniendo datos del sensor...'):
             sensor_data = get_mqtt_message()
             st.session_state.sensor_data = sensor_data
