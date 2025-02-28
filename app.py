@@ -99,11 +99,11 @@ except:
     pass
 
 with st.sidebar:
-    st.subheader("Que es un sistema Experto?")
+    st.subheader("Asistente de Jardinería")
     st.write(
-    """UMI resolverá dudas sobre las dudas que tengas.
-       
-       
+    """
+       UMI te hará recomendaciones basado
+       en datos en tiempo real de tu jardín
     """
                 )            
 
