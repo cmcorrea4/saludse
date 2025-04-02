@@ -19,9 +19,9 @@ import json
 import paho.mqtt.client as mqtt
 import pytz
 
-MQTT_BROKER = "157.230.214.127"
+MQTT_BROKER = "broker.mqttdashboard.com"
 MQTT_PORT = 1883
-MQTT_TOPIC = "Sensor/THP"  #sensor_st
+MQTT_TOPIC = "rfid/tags"  #sensor_st, Sensor/THP
 
 # Variables de estado para los datos del sensor
 if 'sensor_data' not in st.session_state:
