@@ -21,7 +21,7 @@ import pytz
 
 MQTT_BROKER = "broker.mqttdashboard.com"
 MQTT_PORT = 1883
-MQTT_TOPIC = "rfid/tags"  #sensor_st, Sensor/THP
+MQTT_TOPIC = "Sensor/THP"  #sensor_st, Sensor/THP, rfid/tags
 
 # Variables de estado para los datos del sensor
 if 'sensor_data' not in st.session_state:
